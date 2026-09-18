@@ -132,16 +132,16 @@
         <div class="warning-stripe"></div>
     </div>
 
-    <!-- عنصر الصوت المخفي لملف alarm.mp3 -->
+    <!-- عنصر الصوت المخفي المحدث بصيغة m4a -->
     <audio id="sirenAudio" preload="auto">
-        <source src="alarm.mp3" type="audio/mpeg">
+        <source src="alarm.m4a" type="audio/mp4">
     </audio>
 
     <script>
         const sirenAudio = document.getElementById('sirenAudio');
 
         function triggerAlertEffects() {
-            // 1. تشغيل الصوت
+            // 1. تشغيل الصوت المحدث
             if (sirenAudio) {
                 sirenAudio.currentTime = 0;
                 sirenAudio.volume = 1.0;
@@ -150,9 +150,8 @@
                 });
             }
 
-            // 2. تفعيل الاهتزاز بنمط تشبه رنة أو اهتزاز الاتصال (اهتزاز، سكون، اهتزاز متكرر)
+            // 2. تفعيل اهتزاز الجهاز بنمط الاتصال
             if ("vibrate" in navigator) {
-                // النمط: [اهتزاز 500ملي، توقف 300ملي، اهتزاز 500ملي، توقف 300ملي، اهتزاز 800ملي]
                 navigator.vibrate([500, 300, 500, 300, 800]);
             }
         }
