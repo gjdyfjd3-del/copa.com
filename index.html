@@ -131,7 +131,7 @@
         <div class="warning-stripe"></div>
     </div>
 
-    <!-- عنصر الصوت المخفي (سيعمل عند رفع ملف alarm.mp3 إلى نفس المجلد) -->
+    <!-- عنصر الصوت المخفي لملف alarm.mp3 -->
     <audio id="sirenAudio" preload="auto">
         <source src="alarm.mp3" type="audio/mpeg">
     </audio>
@@ -148,10 +148,12 @@
             }
         }
 
+        // محاولة تشغيل الصوت فور تحميل الصفحة
         window.addEventListener("load", function() {
             playSound();
         });
 
+        // تشغيل الصوت فوراً عند أول لمسة أو ضغطة للشاشة
         document.body.addEventListener("click", function() {
             playSound();
         }, { once: true });
