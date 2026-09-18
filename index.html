@@ -1,1 +1,161 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحذير أمني - حملة كلنا وعي</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f2f2f2;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .page-container {
+            width: 100%;
+            max-width: 480px;
+            height: 100vh;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        @media (min-width: 481px) {
+            .page-container {
+                height: 85vh;
+                border-radius: 20px;
+                overflow: hidden;
+            }
+        }
+        .warning-stripe {
+            height: 30px;
+            width: 100%;
+            background-image: repeating-linear-gradient(
+                45deg,
+                #000000,
+                #000000 20px,
+                #FFCC00 20px,
+                #FFCC00 40px
+            );
+            border-top: 2px solid #000;
+            border-bottom: 2px solid #000;
+        }
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 30px;
+            text-align: center;
+        }
+        .alert-icon-container {
+            width: 110px;
+            height: 110px;
+            border: 5px solid #d9534f;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 25px;
+            background-color: #fff;
+        }
+        .alert-exclamation {
+            font-size: 70px;
+            color: #d9534f;
+            font-weight: bold;
+            line-height: 1;
+        }
+        h1 {
+            font-size: 36px;
+            color: #222;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        p {
+            font-size: 17px;
+            line-height: 1.8;
+            color: #333;
+            max-width: 380px;
+        }
+        .footer-section {
+            padding: 15px;
+            text-align: center;
+        }
+        .hashtag {
+            font-size: 24px;
+            font-weight: bold;
+            color: #111;
+            margin-bottom: 5px;
+        }
+        .signature {
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
 
+    <div class="page-container">
+        <!-- الشريط التحذيري العلوي -->
+        <div class="warning-stripe"></div>
+
+        <!-- المحتوى الرئيسي -->
+        <div class="content">
+            <div class="alert-icon-container">
+                <div class="alert-exclamation">!</div>
+            </div>
+            
+            <h1>تحذير</h1>
+            
+            <p>تعرف إن دخولك لروابط مشبوهة قد تعرض نفسك ومن تحب للخطر؟<br>تحقق من الرابط قبل دخوله</p>
+        </div>
+
+        <!-- التذييل (الهاشتاق والاسم) -->
+        <div class="footer-section">
+            <div class="hashtag">#حملة_كلنا_وعي</div>
+            <div class="signature">مشاري القرشي</div>
+        </div>
+
+        <!-- الشريط التحذيري السفلي -->
+        <div class="warning-stripe"></div>
+    </div>
+
+    <!-- عنصر الصوت المخفي (سيعمل عند رفع ملف alarm.mp3 إلى نفس المجلد) -->
+    <audio id="sirenAudio" preload="auto">
+        <source src="alarm.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const sirenAudio = document.getElementById('sirenAudio');
+
+        function playSound() {
+            if (sirenAudio) {
+                sirenAudio.volume = 1.0;
+                sirenAudio.play().catch(error => {
+                    console.log("بانتظار تفاعل المستخدم لتشغيل الصوت...");
+                });
+            }
+        }
+
+        window.addEventListener("load", function() {
+            playSound();
+        });
+
+        document.body.addEventListener("click", function() {
+            playSound();
+        }, { once: true });
+    </script>
+
+</body>
+</html>
