@@ -18,6 +18,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            cursor: pointer;
         }
         .page-container {
             width: 100%;
@@ -139,23 +140,30 @@
     <script>
         const sirenAudio = document.getElementById('sirenAudio');
 
-        function playSound() {
+        function triggerAlertEffects() {
+            // 1. تشغيل الصوت
             if (sirenAudio) {
+                sirenAudio.currentTime = 0;
                 sirenAudio.volume = 1.0;
                 sirenAudio.play().catch(error => {
-                    console.log("بانتظار تفاعل المستخدم لتشغيل الصوت...");
+                    console.log("الصوت بانتظار التفاعل");
                 });
+            }
+
+            // 2. تفعيل الاهتزاز بنمط تشبه رنة أو اهتزاز الاتصال (اهتزاز، سكون، اهتزاز متكرر)
+            if ("vibrate" in navigator) {
+                // النمط: [اهتزاز 500ملي، توقف 300ملي، اهتزاز 500ملي، توقف 300ملي، اهتزاز 800ملي]
+                navigator.vibrate([500, 300, 500, 300, 800]);
             }
         }
 
-        // محاولة تشغيل الصوت فور تحميل الصفحة
-        window.addEventListener("load", function() {
-            playSound();
-        });
+        // تشغيل الصوت والاهتزاز فور أول لمسة أو ضغطة للشاشة
+        document.addEventListener("click", function() {
+            triggerAlertEffects();
+        }, { once: true });
 
-        // تشغيل الصوت فوراً عند أول لمسة أو ضغطة للشاشة
-        document.body.addEventListener("click", function() {
-            playSound();
+        document.addEventListener("touchstart", function() {
+            triggerAlertEffects();
         }, { once: true });
     </script>
 
