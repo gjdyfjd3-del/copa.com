@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اليوم الوطني 96</title>
+    <title>حملة كلنا وعي - التوعية الأمنية</title>
     <style>
         * {
             box-sizing: border-box;
@@ -132,7 +132,6 @@
             padding: 15px;
         }
         
-        /* حاوية الصورة وحدها لتظهر بالكامل */
         .image-container {
             max-width: 90%;
             max-height: 60vh;
@@ -150,7 +149,6 @@
             object-fit: contain;
         }
 
-        /* الشريط التوعوي المنفصل في الأسفل */
         .bottom-banner {
             max-width: 90%;
             background-color: #d9534f;
@@ -207,13 +205,12 @@
         <div class="warning-stripe"></div>
     </div>
 
-    <!-- نافذة عرض المنشور مع الشريط في الأسفل -->
-    <div id="posterModal" class="modal">
+    <!-- نافذة عرض المنشور (أضفنا إمكانية إغلاقها عند الضغط على الخلفية السوداء) -->
+    <div id="posterModal" class="modal" onclick="checkCloseModal(event)">
         <div class="image-container">
             <img src="poster.jpeg" alt="المنشور التوعوي" class="modal-content">
         </div>
         
-        <!-- الشريط الأحمر المنفصل في آخر الصفحة -->
         <div class="bottom-banner">
             مشت عليك؟ خذ لقطة للشاشة وشاركها بحسابك بتويتر عشان ماتمشي على غيرك!
         </div>
@@ -239,14 +236,31 @@
             }
         }
 
+        // دالة إيقاف الصوت تماماً
+        function stopAlertAudio() {
+            if (sirenAudio) {
+                sirenAudio.pause();
+                sirenAudio.currentTime = 0; // إعادة إرجاع الصوت للبداية
+            }
+        }
+
         function handleAction(event) {
             event.stopPropagation();
-            triggerAlertEffects(); // تشغيل الإنذار الصوتي
+            triggerAlertEffects(); // تشغيل الإنذار
             document.getElementById('posterModal').style.display = 'flex'; // إظهار النافذة
         }
 
+        // دالة إغلاق النافذة وإيقاف الصوت
         function closePoster() {
             document.getElementById('posterModal').style.display = 'none';
+            stopAlertAudio(); // إطفاء الصوت فور الإغلاق
+        }
+
+        // إغلاق النافذة وإطفاء الصوت إذا ضغط المستخدم على الخلفية السوداء خارج الصورة والشريط
+        function checkCloseModal(event) {
+            if (event.target.id === 'posterModal') {
+                closePoster();
+            }
         }
     </script>
 
