@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عرض اليوم الوطني </title>
+    <title>حملة كلنا وعي - التوعية الأمنية</title>
     <style>
         * {
             box-sizing: border-box;
@@ -85,7 +85,6 @@
             max-width: 380px;
             margin-bottom: 15px;
         }
-        /* تصميم الزر الأحمر المطلوب */
         .action-btn {
             background-color: #d9534f;
             color: #ffffff;
@@ -126,24 +125,51 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.85);
+            background-color: rgba(0,0,0,0.9);
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            padding: 20px;
+            padding: 15px;
         }
-        .modal-content {
+        
+        /* الحاوية التي تجمع الصورة والشريط التحذيري فوقها */
+        .image-wrapper {
+            position: relative;
             max-width: 90%;
-            max-height: 80vh;
+            max-height: 75vh;
             border-radius: 10px;
-            box-shadow: 0 0 15px rgba(255,255,255,0.2);
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
         }
+
+        .modal-content {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* الشريط التوعوي الجديد فوق الصورة */
+        .overlay-banner {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(217, 83, 79, 0.95); /* لون أحمر تحذيري شفاف */
+            color: #ffffff;
+            padding: 10px 15px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: bold;
+            line-height: 1.4;
+            border-top: 2px solid #000;
+        }
+
         .close-btn {
             margin-top: 15px;
             background-color: #333;
             color: white;
             border: 2px solid #fff;
-            padding: 8px 20px;
+            padding: 8px 25px;
             font-size: 14px;
             font-weight: bold;
             border-radius: 5px;
@@ -181,9 +207,14 @@
         <div class="warning-stripe"></div>
     </div>
 
-    <!-- نافذة عرض المنشور (الصورة) -->
+    <!-- نافذة عرض المنشور مع الشريط فوقه -->
     <div id="posterModal" class="modal">
-        <img src="poster.jpeg" alt="المنشور التوعوي" class="modal-content">
+        <div class="image-wrapper">
+            <img src="poster.jpeg" alt="المنشور التوعوي" class="modal-content">
+            <div class="overlay-banner">
+                مشت عليك؟ خذ لقطة للشاشة وشاركها بحسابك بتويتر عشان ماتمشي على غيرك!
+            </div>
+        </div>
         <button class="close-btn" onclick="closePoster()">إغلاق</button>
     </div>
 
@@ -205,11 +236,10 @@
             }
         }
 
-        // دالة تشغيل الإنذار وإظهار الصورة عند النقر على الزر الأحمر
         function handleAction(event) {
             event.stopPropagation();
             triggerAlertEffects(); // تشغيل الإنذار الصوتي
-            document.getElementById('posterModal').style.display = 'flex'; // إظهار المنشور
+            document.getElementById('posterModal').style.display = 'flex'; // إظهار المنشور والشريط
         }
 
         function closePoster() {
