@@ -17,7 +17,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            cursor: pointer;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .page-container {
             width: 100%;
@@ -83,6 +83,23 @@
             line-height: 1.5;
             color: #333;
             max-width: 380px;
+            margin-bottom: 15px;
+        }
+        /* تصميم الزر الأحمر المطلوب */
+        .action-btn {
+            background-color: #d9534f;
+            color: #ffffff;
+            border: 2px solid #000;
+            padding: 10px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+            transition: 0.2s;
+        }
+        .action-btn:hover {
+            background-color: #c9302c;
         }
         .footer-section {
             padding: 10px;
@@ -98,6 +115,39 @@
         .signature {
             font-size: 12px;
             color: #666;
+        }
+
+        /* نافذة عرض الصورة المنبثقة (Modal) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .modal-content {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255,255,255,0.2);
+        }
+        .close-btn {
+            margin-top: 15px;
+            background-color: #333;
+            color: white;
+            border: 2px solid #fff;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -116,6 +166,9 @@
             <h1>تحذير</h1>
             
             <p>تعرف إن دخولك لروابط مشبوهة قد تعرض نفسك ومن تحب للخطر؟<br>تحقق من الرابط قبل دخوله</p>
+            
+            <!-- زر اضغط هنا باللون الأحمر -->
+            <button class="action-btn" onclick="handleAction(event)">اضغط هنا</button>
         </div>
 
         <!-- التذييل (الهاشتاق والاسم) -->
@@ -126,6 +179,12 @@
 
         <!-- الشريط التحذيري السفلي -->
         <div class="warning-stripe"></div>
+    </div>
+
+    <!-- نافذة عرض المنشور (الصورة) -->
+    <div id="posterModal" class="modal">
+        <img src="poster.jpeg" alt="المنشور التوعوي" class="modal-content">
+        <button class="close-btn" onclick="closePoster()">إغلاق</button>
     </div>
 
     <!-- عنصر الصوت المخفي بصيغة alarm.m4a -->
@@ -146,13 +205,16 @@
             }
         }
 
-        document.addEventListener("click", function() {
-            triggerAlertEffects();
-        }, { once: true });
+        // دالة تشغيل الإنذار وإظهار الصورة عند النقر على الزر الأحمر
+        function handleAction(event) {
+            event.stopPropagation();
+            triggerAlertEffects(); // تشغيل الإنذار الصوتي
+            document.getElementById('posterModal').style.display = 'flex'; // إظهار المنشور
+        }
 
-        document.addEventListener("touchstart", function() {
-            triggerAlertEffects();
-        }, { once: true });
+        function closePoster() {
+            document.getElementById('posterModal').style.display = 'none';
+        }
     </script>
 
 </body>
